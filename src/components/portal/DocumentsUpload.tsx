@@ -45,15 +45,15 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
 
   return (
     <div>
-      <div className="border-b border-slate-200 pb-4 mb-6">
-        <h2 className="text-xl font-bold text-slate-800">Step 3: Documents Upload</h2>
+      <div className="border-b border-gray-300 pb-4 mb-6">
+        <h2 className="text-xl font-bold text-gray-800">Step 3: Documents Upload</h2>
       </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {documentTypes.map((doc) => (
-            <Card key={doc.key} className="border border-slate-300 p-4 bg-slate-50">
+            <Card key={doc.key} className="border border-gray-400 p-4 bg-gray-50">
               <div className="space-y-3">
-                <h3 className="font-medium text-slate-700">{doc.label}</h3>
+                <h3 className="font-medium text-gray-700">{doc.label}</h3>
                 
                 {!documents[doc.key] ? (
                   <div className="relative">
@@ -71,15 +71,15 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full flex items-center gap-2 border-dashed border-2 border-slate-400 py-8 hover:border-slate-500 bg-white"
+                      className="w-full flex items-center gap-2 border-dashed border-2 border-gray-500 py-8 hover:border-gray-600 bg-white"
                     >
                       <Upload className="h-4 w-4" />
                       Upload File
                     </Button>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-300">
-                    <span className="text-sm text-slate-700 truncate">
+                  <div className="flex items-center justify-between p-3 bg-white rounded border border-gray-400">
+                    <span className="text-sm text-gray-700 truncate">
                       {documents[doc.key]?.name}
                     </span>
                     <Button
@@ -87,7 +87,7 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
                       variant="ghost"
                       size="sm"
                       onClick={() => clearFile(doc.key)}
-                      className="p-1 hover:bg-slate-100"
+                      className="p-1 hover:bg-gray-100"
                     >
                       <X className="h-4 w-4" />
                     </Button>

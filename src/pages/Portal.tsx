@@ -51,118 +51,119 @@ const Portal = () => {
     }));
   };
 
+  const goToStep = (stepNumber: number) => {
+    setCurrentStep(stepNumber);
+  };
+
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-gray-100">
       {/* Government-style Header */}
-      <div className="bg-slate-800 border-b-4 border-slate-600">
-        <div className="max-w-5xl mx-auto px-4 py-6">
-          <div className="text-center mb-6">
+      <div className="bg-gray-600 border-b-4 border-gray-500">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="text-center">
             <h1 className="text-3xl font-bold text-white mb-1">DocuVerify</h1>
-            <p className="text-slate-300 text-sm">Powered by EarnIntern</p>
-          </div>
-          
-          {/* Government-style Progress Bar */}
-          <div className="bg-slate-700 p-4 rounded">
-            <div className="flex justify-between items-center">
-              {steps.map((step, index) => (
-                <div key={step.number} className="flex items-center">
-                  <div className={`px-4 py-2 text-sm font-medium border ${
-                    step.number === currentStep 
-                      ? 'bg-slate-200 text-slate-800 border-slate-300' 
-                      : 'bg-slate-600 text-slate-200 border-slate-500'
-                  }`}>
-                    {step.number}. {step.title}
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div className="w-4 h-px bg-slate-500 mx-1"></div>
-                  )}
-                </div>
-              ))}
-            </div>
+            <p className="text-gray-300 text-sm">Powered by EarnIntern</p>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 py-6">
-        <div className="bg-white border border-slate-300 shadow">
-          <div className="p-8">
-            {currentStep === 1 && (
-              <PersonalDetails 
-                data={formData.personalDetails}
-                updateData={(data) => updateFormData('personalDetails', data)}
-              />
-            )}
-            {currentStep === 2 && (
-              <AcademicHistory 
-                data={formData.academicHistory}
-                updateData={(data) => updateFormData('academicHistory', data)}
-              />
-            )}
-            {currentStep === 3 && (
-              <DocumentsUpload 
-                data={formData.documents}
-                updateData={(data) => updateFormData('documents', data)}
-              />
-            )}
-            {currentStep === 4 && (
-              <JobSection 
-                data={formData.jobSection}
-                updateData={(data) => updateFormData('jobSection', data)}
-              />
-            )}
-            {currentStep === 5 && (
-              <FinalReview 
-                formData={formData}
-                updateFinalConsent={(data) => updateFormData('finalConsent', data)}
-                onFinalize={handleFinalize}
-              />
-            )}
+      <div className="flex max-w-7xl mx-auto">
+        {/* Left Sidebar Navigation */}
+        <div className="w-64 bg-gray-200 border-r border-gray-400 min-h-screen p-4">
+          <div className="space-y-2">
+            {steps.map((step) => (
+              <button
+                key={step.number}
+                onClick={() => goToStep(step.number)}
+                className={`w-full text-left px-4 py-3 border text-sm font-medium transition-colors ${
+                  step.number === currentStep 
+                    ? 'bg-gray-300 text-gray-800 border-gray-500 font-bold' 
+                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+                }`}
+              >
+                {step.number}. {step.title}
+              </button>
+            ))}
+          </div>
+        </div>
 
-            {/* Navigation Buttons */}
-            {currentStep < 5 && (
-              <div className="flex justify-between mt-8 pt-6 border-t border-slate-200">
-                <Button 
-                  onClick={handleBack} 
-                  disabled={currentStep === 1}
-                  variant="outline"
-                  className="px-8 py-2 border-slate-400 text-slate-700 hover:bg-slate-50"
-                >
-                  Back
-                </Button>
-                <Button 
-                  onClick={handleNext}
-                  className="px-8 py-2 bg-slate-700 hover:bg-slate-800 text-white"
-                >
-                  Next
-                </Button>
-              </div>
-            )}
+        {/* Main Content */}
+        <div className="flex-1 p-6">
+          <div className="bg-white border border-gray-400 shadow-sm">
+            <div className="p-8">
+              {currentStep === 1 && (
+                <PersonalDetails 
+                  data={formData.personalDetails}
+                  updateData={(data) => updateFormData('personalDetails', data)}
+                />
+              )}
+              {currentStep === 2 && (
+                <AcademicHistory 
+                  data={formData.academicHistory}
+                  updateData={(data) => updateFormData('academicHistory', data)}
+                />
+              )}
+              {currentStep === 3 && (
+                <DocumentsUpload 
+                  data={formData.documents}
+                  updateData={(data) => updateFormData('documents', data)}
+                />
+              )}
+              {currentStep === 4 && (
+                <JobSection 
+                  data={formData.jobSection}
+                  updateData={(data) => updateFormData('jobSection', data)}
+                />
+              )}
+              {currentStep === 5 && (
+                <FinalReview 
+                  formData={formData}
+                  updateFinalConsent={(data) => updateFormData('finalConsent', data)}
+                  onFinalize={handleFinalize}
+                />
+              )}
+
+              {/* Navigation Buttons */}
+              {currentStep < 5 && (
+                <div className="flex justify-between mt-8 pt-6 border-t border-gray-300">
+                  <Button 
+                    onClick={handleBack} 
+                    disabled={currentStep === 1}
+                    variant="outline"
+                    className="px-8 py-2 border-gray-400 text-gray-700 hover:bg-gray-50"
+                  >
+                    Back
+                  </Button>
+                  <Button 
+                    onClick={handleNext}
+                    className="px-8 py-2 bg-gray-600 hover:bg-gray-700 text-white"
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Payment Modal */}
       <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
-        <DialogContent className="sm:max-w-md bg-white border border-slate-300">
+        <DialogContent className="sm:max-w-md bg-white border border-gray-400">
           <DialogHeader>
-            <DialogTitle className="text-center text-lg font-semibold text-slate-800">
+            <DialogTitle className="text-center text-lg font-semibold text-gray-800">
               Application Verification
             </DialogTitle>
           </DialogHeader>
           <div className="text-center space-y-4">
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed">
               To verify the authenticity of your application, do necessary background checks 
               and provision your secure digital signature, a service charge of ₹183 (incl. GST) is required.
             </p>
             <div className="pt-4">
-              <form>
-                <script 
-                  src="https://checkout.razorpay.com/v1/payment-button.js" 
-                  data-payment_button_id="pl_QlkHtuQN0e8WZH" 
-                  async
-                ></script>
-              </form>
+              <div dangerouslySetInnerHTML={{
+                __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QlkHtuQN0e8WZH" async></script></form>`
+              }} />
             </div>
           </div>
         </DialogContent>
