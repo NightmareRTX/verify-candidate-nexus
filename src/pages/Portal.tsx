@@ -52,40 +52,41 @@ const Portal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 py-4">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl font-bold text-slate-800">DocuVerify</h1>
-            <p className="text-sm text-gray-600 mt-1">Powered by EarnIntern</p>
+    <div className="min-h-screen bg-slate-100">
+      {/* Government-style Header */}
+      <div className="bg-slate-800 border-b-4 border-slate-600">
+        <div className="max-w-5xl mx-auto px-4 py-6">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-white mb-1">DocuVerify</h1>
+            <p className="text-slate-300 text-sm">Powered by EarnIntern</p>
           </div>
           
-          {/* Progress Bar */}
-          <div className="flex justify-between items-center">
-            {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center">
-                <div className={`flex items-center ${
-                  step.number === currentStep 
-                    ? 'bg-slate-700 text-white px-3 py-1 rounded font-semibold' 
-                    : 'text-gray-600'
-                }`}>
-                  <span className="mr-2">{step.number}.</span>
-                  <span className="text-sm">{step.title}</span>
+          {/* Government-style Progress Bar */}
+          <div className="bg-slate-700 p-4 rounded">
+            <div className="flex justify-between items-center">
+              {steps.map((step, index) => (
+                <div key={step.number} className="flex items-center">
+                  <div className={`px-4 py-2 text-sm font-medium border ${
+                    step.number === currentStep 
+                      ? 'bg-slate-200 text-slate-800 border-slate-300' 
+                      : 'bg-slate-600 text-slate-200 border-slate-500'
+                  }`}>
+                    {step.number}. {step.title}
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className="w-4 h-px bg-slate-500 mx-1"></div>
+                  )}
                 </div>
-                {index < steps.length - 1 && (
-                  <div className="w-8 h-px bg-gray-300 mx-2"></div>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-6 py-8">
-        <Card className="bg-white shadow-sm">
-          <CardContent className="p-8">
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        <div className="bg-white border border-slate-300 shadow">
+          <div className="p-8">
             {currentStep === 1 && (
               <PersonalDetails 
                 data={formData.personalDetails}
@@ -120,37 +121,37 @@ const Portal = () => {
 
             {/* Navigation Buttons */}
             {currentStep < 5 && (
-              <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+              <div className="flex justify-between mt-8 pt-6 border-t border-slate-200">
                 <Button 
                   onClick={handleBack} 
                   disabled={currentStep === 1}
                   variant="outline"
-                  className="px-6"
+                  className="px-8 py-2 border-slate-400 text-slate-700 hover:bg-slate-50"
                 >
                   Back
                 </Button>
                 <Button 
                   onClick={handleNext}
-                  className="px-6 bg-slate-700 hover:bg-slate-800"
+                  className="px-8 py-2 bg-slate-700 hover:bg-slate-800 text-white"
                 >
                   Next
                 </Button>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Payment Modal */}
       <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white border border-slate-300">
           <DialogHeader>
-            <DialogTitle className="text-center text-lg font-semibold">
+            <DialogTitle className="text-center text-lg font-semibold text-slate-800">
               Application Verification
             </DialogTitle>
           </DialogHeader>
           <div className="text-center space-y-4">
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               To verify the authenticity of your application, do necessary background checks 
               and provision your secure digital signature, a service charge of ₹183 (incl. GST) is required.
             </p>

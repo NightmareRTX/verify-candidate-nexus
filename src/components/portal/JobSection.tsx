@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -77,15 +76,15 @@ const JobSection = ({ data, updateData }: JobSectionProps) => {
 
   return (
     <div>
-      <CardHeader className="pb-6">
-        <CardTitle className="text-xl text-slate-800">Step 4: Job Section</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+      <div className="border-b border-slate-200 pb-4 mb-6">
+        <h2 className="text-xl font-bold text-slate-800">Step 4: Job Section</h2>
+      </div>
+      <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="interestedRole" className="text-sm font-medium text-gray-700">
+          <Label htmlFor="interestedRole" className="text-sm font-medium text-slate-700">
             Role you are interested for *
           </Label>
-          <p className="text-xs text-gray-500 mb-2">
+          <p className="text-xs text-slate-500 mb-2">
             Know more about available careers{" "}
             <a 
               href="https://www.yumtra.app/careers" 
@@ -97,12 +96,12 @@ const JobSection = ({ data, updateData }: JobSectionProps) => {
             </a>
           </p>
           <Select value={formData.interestedRole} onValueChange={handleRoleSelect}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full border-slate-300 focus:border-slate-500">
               <SelectValue placeholder="Select a role" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white border border-slate-300 shadow-lg z-50">
               {roleOptions.map((role) => (
-                <SelectItem key={role} value={role}>
+                <SelectItem key={role} value={role} className="hover:bg-slate-50">
                   {role}
                 </SelectItem>
               ))}
@@ -111,10 +110,10 @@ const JobSection = ({ data, updateData }: JobSectionProps) => {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-sm font-medium text-gray-700">
+          <Label className="text-sm font-medium text-slate-700">
             Select multiple roles you're interested in (optional)
           </Label>
-          <Card className="border border-gray-200 p-4 max-h-60 overflow-y-auto">
+          <div className="border border-slate-300 p-4 max-h-60 overflow-y-auto bg-slate-50">
             <div className="grid grid-cols-1 gap-2">
               {roleOptions.map((role) => (
                 <div key={role} className="flex items-center space-x-2">
@@ -125,34 +124,34 @@ const JobSection = ({ data, updateData }: JobSectionProps) => {
                   />
                   <label 
                     htmlFor={`multi-${role}`} 
-                    className="text-sm text-gray-700 cursor-pointer"
+                    className="text-sm text-slate-700 cursor-pointer"
                   >
                     {role}
                   </label>
                 </div>
               ))}
             </div>
-          </Card>
+          </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="whyBestFit" className="text-sm font-medium text-gray-700">
+          <Label htmlFor="whyBestFit" className="text-sm font-medium text-slate-700">
             What makes you the best fit for this role? (100-200 words) *
           </Label>
           <Textarea
             id="whyBestFit"
             value={formData.whyBestFit}
             onChange={(e) => handleTextChange(e.target.value)}
-            className="border-gray-300 min-h-32"
+            className="border-slate-300 focus:border-slate-500 min-h-32"
             placeholder="Describe why you're the perfect fit for this role..."
             maxLength={400}
             required
           />
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-slate-500">
             {formData.whyBestFit.length}/400 characters
           </p>
         </div>
-      </CardContent>
+      </div>
     </div>
   );
 };

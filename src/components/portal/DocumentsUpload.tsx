@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Upload, X } from "lucide-react";
 
 interface DocumentsUploadProps {
@@ -45,15 +45,15 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
 
   return (
     <div>
-      <CardHeader className="pb-6">
-        <CardTitle className="text-xl text-slate-800">Step 3: Documents Upload</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+      <div className="border-b border-slate-200 pb-4 mb-6">
+        <h2 className="text-xl font-bold text-slate-800">Step 3: Documents Upload</h2>
+      </div>
+      <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {documentTypes.map((doc) => (
-            <Card key={doc.key} className="border border-gray-200 p-4">
+            <Card key={doc.key} className="border border-slate-300 p-4 bg-slate-50">
               <div className="space-y-3">
-                <h3 className="font-medium text-gray-700">{doc.label}</h3>
+                <h3 className="font-medium text-slate-700">{doc.label}</h3>
                 
                 {!documents[doc.key] ? (
                   <div className="relative">
@@ -71,15 +71,15 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full flex items-center gap-2 border-dashed border-2 border-gray-300 py-8 hover:border-gray-400"
+                      className="w-full flex items-center gap-2 border-dashed border-2 border-slate-400 py-8 hover:border-slate-500 bg-white"
                     >
                       <Upload className="h-4 w-4" />
                       Upload File
                     </Button>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded border">
-                    <span className="text-sm text-gray-700 truncate">
+                  <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-300">
+                    <span className="text-sm text-slate-700 truncate">
                       {documents[doc.key]?.name}
                     </span>
                     <Button
@@ -87,7 +87,7 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
                       variant="ghost"
                       size="sm"
                       onClick={() => clearFile(doc.key)}
-                      className="p-1 hover:bg-gray-200"
+                      className="p-1 hover:bg-slate-100"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -97,7 +97,7 @@ const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
             </Card>
           ))}
         </div>
-      </CardContent>
+      </div>
     </div>
   );
 };
