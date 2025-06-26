@@ -28,13 +28,13 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
   return (
     <div>
       <div className="border-b border-gray-300 pb-4 mb-6">
-        <h2 className="text-xl font-bold text-gray-800">Step 5: Final Review</h2>
+        <h2 className="text-xl font-bold text-black">Step 5: Final Review</h2>
       </div>
       <div className="space-y-6">
         {/* Personal Details Review */}
-        <Card className="border border-gray-400 bg-gray-50">
+        <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-700">Personal Details</CardTitle>
+            <CardTitle className="text-lg text-black">Personal Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="grid grid-cols-2 gap-4 text-sm">
@@ -52,9 +52,9 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         </Card>
 
         {/* Academic History Review */}
-        <Card className="border border-gray-400 bg-gray-50">
+        <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-700">Academic History</CardTitle>
+            <CardTitle className="text-lg text-black">Academic History</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-3 gap-4 text-sm">
@@ -80,7 +80,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
             
             {formData.academicHistory?.courses?.length > 0 && (
               <div>
-                <strong className="text-sm">Bachelors Degree Coursework:</strong>
+                <strong className="text-sm">Bachelors Degree Coursework Details:</strong>
                 <div className="mt-2 space-y-1">
                   {formData.academicHistory.courses.map((course: any, index: number) => (
                     <div key={index} className="text-sm text-gray-600">
@@ -94,9 +94,9 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         </Card>
 
         {/* Documents Review */}
-        <Card className="border border-gray-400 bg-gray-50">
+        <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-700">Documents Uploaded</CardTitle>
+            <CardTitle className="text-lg text-black">Documents Uploaded</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4 text-sm">
@@ -109,9 +109,9 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         </Card>
 
         {/* Job Section Review */}
-        <Card className="border border-gray-400 bg-gray-50">
+        <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-700">Job Preferences</CardTitle>
+            <CardTitle className="text-lg text-black">Job Preferences</CardTitle>
           </CardHeader>
           <CardContent className="text-sm space-y-2">
             <div>
@@ -134,17 +134,17 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
           </CardContent>
         </Card>
 
-        <Separator className="bg-gray-400" />
+        <Separator className="bg-gray-300" />
 
         {/* Consent Checkboxes */}
-        <div className="space-y-4 bg-gray-50 p-4 border border-gray-400">
+        <div className="space-y-4 bg-gray-50 p-4 border border-gray-300">
           <div className="flex items-center space-x-2">
             <Checkbox
               id="declaration"
               checked={consent.declaration}
               onCheckedChange={(checked) => handleConsentChange('declaration', checked as boolean)}
             />
-            <label htmlFor="declaration" className="text-sm text-gray-700 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            <label htmlFor="declaration" className="text-sm text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               I declare that all information provided is true and correct.
             </label>
           </div>
@@ -155,7 +155,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
               checked={consent.terms}
               onCheckedChange={(checked) => handleConsentChange('terms', checked as boolean)}
             />
-            <label htmlFor="terms" className="text-sm text-gray-700 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            <label htmlFor="terms" className="text-sm text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               I agree to the terms of service.
             </label>
           </div>
@@ -167,7 +167,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
             <Button
               onClick={onFinalize}
               disabled={!canFinalize}
-              className="px-8 py-2 bg-gray-600 hover:bg-gray-700 disabled:opacity-50 text-white"
+              className="px-8 py-2 bg-black hover:bg-gray-800 disabled:opacity-50 text-white"
             >
               Verify and Finalize Application
             </Button>

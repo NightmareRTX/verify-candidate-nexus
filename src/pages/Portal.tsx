@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import PersonalDetails from "@/components/portal/PersonalDetails";
 import AcademicHistory from "@/components/portal/AcademicHistory";
@@ -56,20 +55,20 @@ const Portal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Government-style Header */}
-      <div className="bg-gray-600 border-b-4 border-gray-500">
+    <div className="min-h-screen bg-white">
+      {/* Simple Header */}
+      <div className="bg-white border-b border-gray-300">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white mb-1">DocuVerify</h1>
-            <p className="text-gray-300 text-sm">Powered by EarnIntern</p>
+            <h1 className="text-3xl font-bold text-black mb-1">DocuVerify</h1>
+            <p className="text-gray-600 text-sm">Powered by EarnIntern</p>
           </div>
         </div>
       </div>
 
       <div className="flex max-w-7xl mx-auto">
         {/* Left Sidebar Navigation */}
-        <div className="w-64 bg-gray-200 border-r border-gray-400 min-h-screen p-4">
+        <div className="w-64 bg-gray-100 border-r border-gray-300 min-h-screen p-4">
           <div className="space-y-2">
             {steps.map((step) => (
               <button
@@ -77,8 +76,8 @@ const Portal = () => {
                 onClick={() => goToStep(step.number)}
                 className={`w-full text-left px-4 py-3 border text-sm font-medium transition-colors ${
                   step.number === currentStep 
-                    ? 'bg-gray-300 text-gray-800 border-gray-500 font-bold' 
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+                    ? 'bg-white text-black border-gray-400 font-bold' 
+                    : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-white'
                 }`}
               >
                 {step.number}. {step.title}
@@ -89,7 +88,7 @@ const Portal = () => {
 
         {/* Main Content */}
         <div className="flex-1 p-6">
-          <div className="bg-white border border-gray-400 shadow-sm">
+          <div className="bg-white border border-gray-300">
             <div className="p-8">
               {currentStep === 1 && (
                 <PersonalDetails 
@@ -130,13 +129,13 @@ const Portal = () => {
                     onClick={handleBack} 
                     disabled={currentStep === 1}
                     variant="outline"
-                    className="px-8 py-2 border-gray-400 text-gray-700 hover:bg-gray-50"
+                    className="px-8 py-2 border-gray-300 text-black hover:bg-gray-50"
                   >
                     Back
                   </Button>
                   <Button 
                     onClick={handleNext}
-                    className="px-8 py-2 bg-gray-600 hover:bg-gray-700 text-white"
+                    className="px-8 py-2 bg-black hover:bg-gray-800 text-white"
                   >
                     Next
                   </Button>
@@ -149,9 +148,9 @@ const Portal = () => {
 
       {/* Payment Modal */}
       <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
-        <DialogContent className="sm:max-w-md bg-white border border-gray-400">
+        <DialogContent className="sm:max-w-md bg-white border border-gray-300">
           <DialogHeader>
-            <DialogTitle className="text-center text-lg font-semibold text-gray-800">
+            <DialogTitle className="text-center text-lg font-semibold text-black">
               Application Verification
             </DialogTitle>
           </DialogHeader>
@@ -161,9 +160,11 @@ const Portal = () => {
               and provision your secure digital signature, a service charge of ₹183 (incl. GST) is required.
             </p>
             <div className="pt-4">
-              <div dangerouslySetInnerHTML={{
-                __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QlkHtuQN0e8WZH" async></script></form>`
-              }} />
+              <div 
+                dangerouslySetInnerHTML={{
+                  __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QlkHtuQN0e8WZH" async></script></form>`
+                }} 
+              />
             </div>
           </div>
         </DialogContent>
