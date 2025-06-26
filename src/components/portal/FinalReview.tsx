@@ -28,7 +28,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
   return (
     <div>
       <CardHeader className="pb-6">
-        <CardTitle className="text-xl text-slate-800">Step 4: Final Review</CardTitle>
+        <CardTitle className="text-xl text-slate-800">Step 5: Final Review</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Personal Details Review */}
@@ -79,7 +79,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
             
             {formData.academicHistory?.courses?.length > 0 && (
               <div>
-                <strong className="text-sm">Coursework:</strong>
+                <strong className="text-sm">Bachelors Degree Coursework:</strong>
                 <div className="mt-2 space-y-1">
                   {formData.academicHistory.courses.map((course: any, index: number) => (
                     <div key={index} className="text-sm text-gray-600">
@@ -102,7 +102,33 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
               <div>Passport Photograph: {formData.documents?.passport ? '✓ Uploaded' : '✗ Not uploaded'}</div>
               <div>10th Marksheet: {formData.documents?.tenth ? '✓ Uploaded' : '✗ Not uploaded'}</div>
               <div>12th Marksheet: {formData.documents?.twelfth ? '✓ Uploaded' : '✗ Not uploaded'}</div>
-              <div>Degree Certificate: {formData.documents?.degree ? '✓ Uploaded' : '✗ Not uploaded'}</div>
+              <div>Degree Marksheet: {formData.documents?.degree ? '✓ Uploaded' : '✗ Not uploaded'}</div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Job Section Review */}
+        <Card className="border border-gray-200">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg text-slate-700">Job Preferences</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm space-y-2">
+            <div>
+              <strong>Primary Role of Interest:</strong> {formData.jobSection?.interestedRole || 'Not provided'}
+            </div>
+            {formData.jobSection?.selectedRoles?.length > 0 && (
+              <div>
+                <strong>Additional Roles:</strong>
+                <ul className="mt-1 text-gray-600">
+                  {formData.jobSection.selectedRoles.map((role: string, index: number) => (
+                    <li key={index}>• {role}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div>
+              <strong>Why Best Fit:</strong>
+              <p className="mt-1 text-gray-600">{formData.jobSection?.whyBestFit || 'Not provided'}</p>
             </div>
           </CardContent>
         </Card>
@@ -142,7 +168,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
               disabled={!canFinalize}
               className="px-8 py-2 bg-slate-700 hover:bg-slate-800 disabled:opacity-50"
             >
-              Certify and Finalize Application
+              Verify and Finalize Application
             </Button>
           </div>
         </div>

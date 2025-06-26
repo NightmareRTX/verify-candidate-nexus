@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, X } from "lucide-react";
 
-interface DocumentLockerProps {
+interface DocumentsUploadProps {
   data: any;
   updateData: (data: any) => void;
 }
 
-const DocumentLocker = ({ data, updateData }: DocumentLockerProps) => {
+const DocumentsUpload = ({ data, updateData }: DocumentsUploadProps) => {
   const [documents, setDocuments] = useState({
     passport: null,
     tenth: null,
@@ -40,13 +40,13 @@ const DocumentLocker = ({ data, updateData }: DocumentLockerProps) => {
     { key: 'passport', label: 'Passport Photograph' },
     { key: 'tenth', label: '10th Marksheet' },
     { key: 'twelfth', label: '12th Marksheet' },
-    { key: 'degree', label: 'Degree Certificate' }
+    { key: 'degree', label: 'Degree Marksheet (any one semester or overall)' }
   ];
 
   return (
     <div>
       <CardHeader className="pb-6">
-        <CardTitle className="text-xl text-slate-800">Step 3: Your Secure Document Locker</CardTitle>
+        <CardTitle className="text-xl text-slate-800">Step 3: Documents Upload</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -97,17 +97,9 @@ const DocumentLocker = ({ data, updateData }: DocumentLockerProps) => {
             </Card>
           ))}
         </div>
-        
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
-          <p className="text-sm text-blue-800">
-            <strong>Note:</strong> Document uploads are optional. You can proceed to the next step 
-            without uploading any documents. However, uploading relevant documents may help in faster 
-            verification of your credentials.
-          </p>
-        </div>
       </CardContent>
     </div>
   );
 };
 
-export default DocumentLocker;
+export default DocumentsUpload;

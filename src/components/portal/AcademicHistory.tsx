@@ -108,7 +108,7 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
         
         <Card className="border border-gray-200">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg text-slate-700">Coursework Details</CardTitle>
+            <CardTitle className="text-lg text-slate-700">Bachelors Degree Coursework Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {formData.courses.map((course, index) => (
@@ -122,7 +122,7 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
                   />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <Label className="text-sm text-gray-700">Grade Obtained</Label>
+                  <Label className="text-sm text-gray-700">Grade/Marks Obtained</Label>
                   <Input
                     value={course.grade}
                     onChange={(e) => handleCourseChange(index, 'grade', e.target.value)}

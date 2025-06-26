@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import PersonalDetails from "@/components/portal/PersonalDetails";
 import AcademicHistory from "@/components/portal/AcademicHistory";
-import DocumentLocker from "@/components/portal/DocumentLocker";
+import DocumentsUpload from "@/components/portal/DocumentsUpload";
+import JobSection from "@/components/portal/JobSection";
 import FinalReview from "@/components/portal/FinalReview";
 
 const Portal = () => {
@@ -15,18 +16,20 @@ const Portal = () => {
     personalDetails: {},
     academicHistory: {},
     documents: {},
+    jobSection: {},
     finalConsent: { declaration: false, terms: false }
   });
 
   const steps = [
     { number: 1, title: "Personal Details" },
     { number: 2, title: "Academic History" },
-    { number: 3, title: "Document Locker" },
-    { number: 4, title: "Final Review" }
+    { number: 3, title: "Documents Upload" },
+    { number: 4, title: "Job Section" },
+    { number: 5, title: "Final Review" }
   ];
 
   const handleNext = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -96,12 +99,18 @@ const Portal = () => {
               />
             )}
             {currentStep === 3 && (
-              <DocumentLocker 
+              <DocumentsUpload 
                 data={formData.documents}
                 updateData={(data) => updateFormData('documents', data)}
               />
             )}
             {currentStep === 4 && (
+              <JobSection 
+                data={formData.jobSection}
+                updateData={(data) => updateFormData('jobSection', data)}
+              />
+            )}
+            {currentStep === 5 && (
               <FinalReview 
                 formData={formData}
                 updateFinalConsent={(data) => updateFormData('finalConsent', data)}
@@ -110,7 +119,7 @@ const Portal = () => {
             )}
 
             {/* Navigation Buttons */}
-            {currentStep < 4 && (
+            {currentStep < 5 && (
               <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
                 <Button 
                   onClick={handleBack} 
@@ -137,7 +146,7 @@ const Portal = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-center text-lg font-semibold">
-              Application Certification
+              Application Verification
             </DialogTitle>
           </DialogHeader>
           <div className="text-center space-y-4">
