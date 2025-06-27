@@ -50,39 +50,43 @@ const Portal = () => {
     }));
   };
 
-  // Validation logic for required fields
+  // Validation logic for required fields with proper type checking
   const isFormValid = () => {
     const { personalDetails, academicHistory, documents, jobSection } = formData;
     
-    // Personal Details validation
-    const personalValid = personalDetails?.fullName && 
-                         personalDetails?.fatherName && 
-                         personalDetails?.emailAddress && 
-                         personalDetails?.dateOfBirth && 
-                         personalDetails?.contactNumber && 
-                         personalDetails?.permanentAddress;
+    // Personal Details validation with type checking
+    const personalValid = personalDetails && typeof personalDetails === 'object' &&
+                         (personalDetails as any)?.fullName && 
+                         (personalDetails as any)?.fatherName && 
+                         (personalDetails as any)?.emailAddress && 
+                         (personalDetails as any)?.dateOfBirth && 
+                         (personalDetails as any)?.contactNumber && 
+                         (personalDetails as any)?.permanentAddress;
 
-    // Academic History validation
-    const academicValid = academicHistory?.tenth?.board && 
-                         academicHistory?.tenth?.year && 
-                         academicHistory?.tenth?.percentage &&
-                         academicHistory?.twelfth?.board && 
-                         academicHistory?.twelfth?.year && 
-                         academicHistory?.twelfth?.percentage &&
-                         academicHistory?.bachelor?.board && 
-                         academicHistory?.bachelor?.year && 
-                         academicHistory?.bachelor?.percentage &&
-                         academicHistory?.bachelor?.degree;
+    // Academic History validation with type checking
+    const academicValid = academicHistory && typeof academicHistory === 'object' &&
+                         (academicHistory as any)?.tenth?.board && 
+                         (academicHistory as any)?.tenth?.year && 
+                         (academicHistory as any)?.tenth?.percentage &&
+                         (academicHistory as any)?.twelfth?.board && 
+                         (academicHistory as any)?.twelfth?.year && 
+                         (academicHistory as any)?.twelfth?.percentage &&
+                         (academicHistory as any)?.bachelor?.board && 
+                         (academicHistory as any)?.bachelor?.year && 
+                         (academicHistory as any)?.bachelor?.percentage &&
+                         (academicHistory as any)?.bachelor?.degree;
 
-    // Documents validation
-    const documentsValid = documents?.passport && 
-                          documents?.tenth && 
-                          documents?.twelfth && 
-                          documents?.degree;
+    // Documents validation with type checking
+    const documentsValid = documents && typeof documents === 'object' &&
+                          (documents as any)?.passport && 
+                          (documents as any)?.tenth && 
+                          (documents as any)?.twelfth && 
+                          (documents as any)?.degree;
 
-    // Job Section validation
-    const jobValid = jobSection?.interestedRole && 
-                    jobSection?.whyBestFit;
+    // Job Section validation with type checking
+    const jobValid = jobSection && typeof jobSection === 'object' &&
+                    (jobSection as any)?.interestedRole && 
+                    (jobSection as any)?.whyBestFit;
 
     return personalValid && academicValid && documentsValid && jobValid;
   };
