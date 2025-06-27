@@ -71,7 +71,7 @@ const JobSection = ({ data, updateData }: JobSectionProps) => {
             Role you are interested for *
           </Label>
           <p className="text-xs text-gray-600 mb-2">
-            Know more about available careers <a href="https://www.yumtra.app/careers" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://www.yumtra.app/careers</a>
+            Know more about available careers <a href="https://www.yumtra.app/careers" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://www.yumtra.app</a>
           </p>
           <Select onValueChange={(value) => setFormData(prev => ({ ...prev, interestedRole: value }))}>
             <SelectTrigger className="border-gray-300 focus:border-gray-500">
