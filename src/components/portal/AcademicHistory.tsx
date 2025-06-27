@@ -15,7 +15,7 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
   const [formData, setFormData] = useState({
     tenth: { board: '', year: '', percentage: '' },
     twelfth: { board: '', year: '', percentage: '' },
-    bachelor: { board: '', year: '', percentage: '' },
+    bachelor: { board: '', year: '', percentage: '', degree: '' },
     courses: [{ name: '', grade: '' }],
     ...data
   });
@@ -57,15 +57,17 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
     }));
   };
 
-  const renderAcademicSection = (title: string, section: string, data: any) => (
+  const renderAcademicSection = (title: string, section: string, data: any, isBachelor = false) => (
     <Card className="border border-gray-200">
       <CardHeader className="pb-4">
-        <CardTitle className="text-lg text-slate-700">{title}</CardTitle>
+        <CardTitle className="text-base sm:text-lg text-slate-700">{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label className="text-sm text-gray-700">Board/University *</Label>
+            <Label className="text-sm text-gray-700">
+              {isBachelor ? "University/College *" : "Board/University *"}
+            </Label>
             <Input
               value={data.board}
               onChange={(e) => handleInputChange(section, 'board', e.target.value)}
@@ -91,6 +93,18 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
               required
             />
           </div>
+          {isBachelor && (
+            <div className="space-y-2 sm:col-span-2 lg:col-span-3">
+              <Label className="text-sm text-gray-700">Degree (ex. B.Tech in Computer Science) *</Label>
+              <Input
+                value={data.degree}
+                onChange={(e) => handleInputChange(section, 'degree', e.target.value)}
+                className="border-gray-300"
+                placeholder="e.g., B.Tech in Computer Science, B.Com, BBA"
+                required
+              />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -98,22 +112,22 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
 
   return (
     <div>
-      <CardHeader className="pb-6">
-        <CardTitle className="text-xl text-slate-800">Step 2: Academic History</CardTitle>
+      <CardHeader className="pb-4 sm:pb-6">
+        <CardTitle className="text-lg sm:text-xl text-slate-800">Step 2: Academic History</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6">
         {renderAcademicSection("10th Standard", "tenth", formData.tenth)}
         {renderAcademicSection("12th Standard", "twelfth", formData.twelfth)}
-        {renderAcademicSection("Bachelor's Degree", "bachelor", formData.bachelor)}
+        {renderAcademicSection("Bachelor's Degree", "bachelor", formData.bachelor, true)}
         
         <Card className="border border-gray-200">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg text-slate-700">Bachelors Degree Coursework Details</CardTitle>
+            <CardTitle className="text-base sm:text-lg text-slate-700">Bachelors Degree Coursework Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {formData.courses.map((course, index) => (
-              <div key={index} className="flex gap-4 items-end">
-                <div className="flex-1 space-y-2">
+              <div key={index} className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+                <div className="flex-1 space-y-2 w-full">
                   <Label className="text-sm text-gray-700">Course Name</Label>
                   <Input
                     value={course.name}
@@ -121,7 +135,7 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
                     className="border-gray-300"
                   />
                 </div>
-                <div className="flex-1 space-y-2">
+                <div className="flex-1 space-y-2 w-full">
                   <Label className="text-sm text-gray-700">Grade/Marks Obtained</Label>
                   <Input
                     value={course.grade}
@@ -135,9 +149,10 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
                     variant="outline"
                     size="sm"
                     onClick={() => removeCourse(index)}
-                    className="p-2"
+                    className="p-2 w-full sm:w-auto"
                   >
                     <X className="h-4 w-4" />
+                    <span className="sm:hidden ml-2">Remove</span>
                   </Button>
                 )}
               </div>
@@ -146,7 +161,7 @@ const AcademicHistory = ({ data, updateData }: AcademicHistoryProps) => {
               type="button"
               variant="outline"
               onClick={addCourse}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
               <Plus className="h-4 w-4" />
               Add Course

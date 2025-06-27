@@ -50,7 +50,48 @@ const Portal = () => {
     }));
   };
 
+  // Validation logic for required fields
+  const isFormValid = () => {
+    const { personalDetails, academicHistory, documents, jobSection } = formData;
+    
+    // Personal Details validation
+    const personalValid = personalDetails?.fullName && 
+                         personalDetails?.fatherName && 
+                         personalDetails?.emailAddress && 
+                         personalDetails?.dateOfBirth && 
+                         personalDetails?.contactNumber && 
+                         personalDetails?.permanentAddress;
+
+    // Academic History validation
+    const academicValid = academicHistory?.tenth?.board && 
+                         academicHistory?.tenth?.year && 
+                         academicHistory?.tenth?.percentage &&
+                         academicHistory?.twelfth?.board && 
+                         academicHistory?.twelfth?.year && 
+                         academicHistory?.twelfth?.percentage &&
+                         academicHistory?.bachelor?.board && 
+                         academicHistory?.bachelor?.year && 
+                         academicHistory?.bachelor?.percentage &&
+                         academicHistory?.bachelor?.degree;
+
+    // Documents validation
+    const documentsValid = documents?.passport && 
+                          documents?.tenth && 
+                          documents?.twelfth && 
+                          documents?.degree;
+
+    // Job Section validation
+    const jobValid = jobSection?.interestedRole && 
+                    jobSection?.whyBestFit;
+
+    return personalValid && academicValid && documentsValid && jobValid;
+  };
+
   const goToStep = (stepNumber: number) => {
+    // Only allow navigation to step 5 if form is valid
+    if (stepNumber === 5 && !isFormValid()) {
+      return;
+    }
     setCurrentStep(stepNumber);
   };
 
@@ -96,38 +137,42 @@ const Portal = () => {
     <div className="min-h-screen bg-white">
       {/* Simple Header */}
       <div className="bg-white border-b border-gray-300">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-black mb-1">DocuVerify</h1>
-            <p className="text-gray-600 text-sm">Powered by EarnIntern</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-black mb-1">DocuVerify</h1>
+            <p className="text-gray-600 text-xs sm:text-sm">Powered by EarnIntern</p>
           </div>
         </div>
       </div>
 
-      <div className="flex max-w-7xl mx-auto">
-        {/* Left Sidebar Navigation */}
-        <div className="w-64 bg-gray-100 border-r border-gray-300 min-h-screen p-4">
-          <div className="space-y-2">
+      <div className="flex flex-col lg:flex-row max-w-7xl mx-auto">
+        {/* Left Sidebar Navigation - Mobile responsive */}
+        <div className="w-full lg:w-64 bg-gray-100 border-b lg:border-r lg:border-b-0 border-gray-300 min-h-auto lg:min-h-screen p-4">
+          <div className="flex flex-row lg:flex-col space-x-2 lg:space-x-0 lg:space-y-2 overflow-x-auto lg:overflow-x-visible">
             {steps.map((step) => (
               <button
                 key={step.number}
                 onClick={() => goToStep(step.number)}
-                className={`w-full text-left px-4 py-3 border text-sm font-medium transition-colors ${
+                disabled={step.number === 5 && !isFormValid()}
+                className={`flex-shrink-0 lg:w-full text-left px-3 sm:px-4 py-2 sm:py-3 border text-xs sm:text-sm font-medium transition-colors whitespace-nowrap lg:whitespace-normal ${
                   step.number === currentStep 
                     ? 'bg-white text-black border-gray-400 font-bold' 
+                    : step.number === 5 && !isFormValid()
+                    ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed'
                     : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-white'
                 }`}
               >
-                {step.number}. {step.title}
+                <span className="lg:hidden">{step.number}</span>
+                <span className="hidden lg:inline">{step.number}. {step.title}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 sm:p-6">
           <div className="bg-white border border-gray-300">
-            <div className="p-8">
+            <div className="p-4 sm:p-6 lg:p-8">
               {currentStep === 1 && (
                 <PersonalDetails 
                   data={formData.personalDetails}
@@ -162,18 +207,18 @@ const Portal = () => {
 
               {/* Navigation Buttons */}
               {currentStep < 5 && (
-                <div className="flex justify-between mt-8 pt-6 border-t border-gray-300">
+                <div className="flex flex-col sm:flex-row justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-300 space-y-3 sm:space-y-0">
                   <Button 
                     onClick={handleBack} 
                     disabled={currentStep === 1}
                     variant="outline"
-                    className="px-8 py-2 border-gray-300 text-black hover:bg-gray-50"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-2 border-gray-300 text-black hover:bg-gray-50"
                   >
                     Back
                   </Button>
                   <Button 
                     onClick={handleNext}
-                    className="px-8 py-2 bg-black hover:bg-gray-800 text-white"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-2 bg-black hover:bg-gray-800 text-white"
                   >
                     Next
                   </Button>
@@ -186,7 +231,7 @@ const Portal = () => {
 
       {/* Payment Modal */}
       <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
-        <DialogContent className="sm:max-w-md bg-white border border-gray-300">
+        <DialogContent className="sm:max-w-md bg-white border border-gray-300 mx-4">
           <DialogHeader>
             <DialogTitle className="text-center text-lg font-semibold text-black">
               Application Verification
@@ -195,7 +240,7 @@ const Portal = () => {
           <div className="text-center space-y-4">
             <p className="text-sm text-gray-600 leading-relaxed">
               To verify the authenticity of your application, do necessary background checks 
-              and provision your secure digital signature, a service charge of ₹183 (incl. GST) is required.
+              and provision your secure digital signature, a Dossier Processing Fee of ₹183 (incl. GST) is required.
             </p>
             <div className="pt-4">
               <div id="razorpay-payment-container">

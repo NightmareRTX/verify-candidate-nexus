@@ -26,17 +26,17 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
 
   return (
     <div>
-      <div className="border-b border-gray-300 pb-4 mb-6">
-        <h2 className="text-xl font-bold text-black">Step 5: Final Review</h2>
+      <div className="border-b border-gray-300 pb-4 mb-4 sm:mb-6">
+        <h2 className="text-lg sm:text-xl font-bold text-black">Step 5: Final Review</h2>
       </div>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Personal Details Review */}
         <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-black">Personal Details</CardTitle>
+            <CardTitle className="text-base sm:text-lg text-black">Personal Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
               <div><strong>Full Name:</strong> {formData.personalDetails?.fullName || 'Not provided'}</div>
               <div><strong>Father's Name:</strong> {formData.personalDetails?.fatherName || 'Not provided'}</div>
               <div><strong>Email Address:</strong> {formData.personalDetails?.emailAddress || 'Not provided'}</div>
@@ -53,10 +53,10 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         {/* Academic History Review */}
         <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-black">Academic History</CardTitle>
+            <CardTitle className="text-base sm:text-lg text-black">Academic History</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
               <div>
                 <strong>10th Standard:</strong>
                 <p>Board: {formData.academicHistory?.tenth?.board || 'Not provided'}</p>
@@ -69,11 +69,12 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
                 <p>Year: {formData.academicHistory?.twelfth?.year || 'Not provided'}</p>
                 <p>Percentage: {formData.academicHistory?.twelfth?.percentage || 'Not provided'}</p>
               </div>
-              <div>
+              <div className="sm:col-span-2 lg:col-span-1">
                 <strong>Bachelor's Degree:</strong>
                 <p>University: {formData.academicHistory?.bachelor?.board || 'Not provided'}</p>
                 <p>Year: {formData.academicHistory?.bachelor?.year || 'Not provided'}</p>
                 <p>CGPA: {formData.academicHistory?.bachelor?.percentage || 'Not provided'}</p>
+                <p>Degree: {formData.academicHistory?.bachelor?.degree || 'Not provided'}</p>
               </div>
             </div>
             
@@ -95,10 +96,10 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         {/* Documents Review */}
         <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-black">Documents Uploaded</CardTitle>
+            <CardTitle className="text-base sm:text-lg text-black">Documents Uploaded</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
               <div>Passport Photograph: {formData.documents?.passport ? '✓ Uploaded' : '✗ Not uploaded'}</div>
               <div>10th Marksheet: {formData.documents?.tenth ? '✓ Uploaded' : '✗ Not uploaded'}</div>
               <div>12th Marksheet: {formData.documents?.twelfth ? '✓ Uploaded' : '✗ Not uploaded'}</div>
@@ -110,7 +111,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
         {/* Job Section Review */}
         <Card className="border border-gray-300 bg-white">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-black">Job Preferences</CardTitle>
+            <CardTitle className="text-base sm:text-lg text-black">Job Preferences</CardTitle>
           </CardHeader>
           <CardContent className="text-sm space-y-2">
             <div>
@@ -137,25 +138,26 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
 
         {/* Consent Checkbox - Only Declaration */}
         <div className="space-y-4 bg-gray-50 p-4 border border-gray-300">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-start space-x-2">
             <Checkbox
               id="declaration"
               checked={consent.declaration}
               onCheckedChange={(checked) => handleConsentChange('declaration', checked as boolean)}
+              className="mt-1"
             />
-            <label htmlFor="declaration" className="text-sm text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            <label htmlFor="declaration" className="text-sm text-black leading-relaxed peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               I declare that all information provided is true and correct.
             </label>
           </div>
         </div>
 
         {/* Finalize Button */}
-        <div className="pt-6">
+        <div className="pt-4 sm:pt-6">
           <div className="flex justify-center">
             <Button
               onClick={onFinalize}
               disabled={!canFinalize}
-              className="px-8 py-2 bg-black hover:bg-gray-800 disabled:opacity-50 text-white"
+              className="w-full sm:w-auto px-6 sm:px-8 py-2 bg-black hover:bg-gray-800 disabled:opacity-50 text-white"
             >
               Verify and Finalize Application
             </Button>
