@@ -1,7 +1,6 @@
 {
-  "outputDirectory": "dist",          // where `vite build` emits files
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "cleanUrls": true                   // optional – drops “.html” in URLs
+  "version": 2,
+  "routes": [
+    { "src": "/.*", "dest": "/index.html" }
+  ]
 }
