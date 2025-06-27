@@ -13,8 +13,7 @@ interface FinalReviewProps {
 
 const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewProps) => {
   const [consent, setConsent] = useState({
-    declaration: false,
-    terms: false
+    declaration: false
   });
 
   const handleConsentChange = (field: string, value: boolean) => {
@@ -23,7 +22,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
     updateFinalConsent(newConsent);
   };
 
-  const canFinalize = consent.declaration && consent.terms;
+  const canFinalize = consent.declaration;
 
   return (
     <div>
@@ -136,7 +135,7 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
 
         <Separator className="bg-gray-300" />
 
-        {/* Consent Checkboxes */}
+        {/* Consent Checkbox - Only Declaration */}
         <div className="space-y-4 bg-gray-50 p-4 border border-gray-300">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -146,17 +145,6 @@ const FinalReview = ({ formData, updateFinalConsent, onFinalize }: FinalReviewPr
             />
             <label htmlFor="declaration" className="text-sm text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               I declare that all information provided is true and correct.
-            </label>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="terms"
-              checked={consent.terms}
-              onCheckedChange={(checked) => handleConsentChange('terms', checked as boolean)}
-            />
-            <label htmlFor="terms" className="text-sm text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              I agree to the terms of service.
             </label>
           </div>
         </div>

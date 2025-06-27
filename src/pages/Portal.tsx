@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import PersonalDetails from "@/components/portal/PersonalDetails";
@@ -16,7 +16,7 @@ const Portal = () => {
     academicHistory: {},
     documents: {},
     jobSection: {},
-    finalConsent: { declaration: false, terms: false }
+    finalConsent: { declaration: false }
   });
 
   const steps = [
@@ -53,6 +53,22 @@ const Portal = () => {
   const goToStep = (stepNumber: number) => {
     setCurrentStep(stepNumber);
   };
+
+  // Add Razorpay script when modal opens
+  useEffect(() => {
+    if (showPaymentModal) {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/payment-button.js';
+      script.setAttribute('data-payment_button_id', 'pl_QlkHtuQN0e8WZH');
+      script.async = true;
+      
+      // Find the payment container and append the script
+      const paymentContainer = document.getElementById('razorpay-payment-container');
+      if (paymentContainer) {
+        paymentContainer.appendChild(script);
+      }
+    }
+  }, [showPaymentModal]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -160,11 +176,11 @@ const Portal = () => {
               and provision your secure digital signature, a service charge of ₹183 (incl. GST) is required.
             </p>
             <div className="pt-4">
-              <div 
-                dangerouslySetInnerHTML={{
-                  __html: `<form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QlkHtuQN0e8WZH" async></script></form>`
-                }} 
-              />
+              <div id="razorpay-payment-container">
+                <form>
+                  {/* The script will be dynamically added here */}
+                </form>
+              </div>
             </div>
           </div>
         </DialogContent>
