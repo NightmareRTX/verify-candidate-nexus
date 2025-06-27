@@ -54,20 +54,42 @@ const Portal = () => {
     setCurrentStep(stepNumber);
   };
 
-  // Add Razorpay script when modal opens
+  // Fixed Razorpay script injection
   useEffect(() => {
-    if (showPaymentModal) {
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/payment-button.js';
-      script.setAttribute('data-payment_button_id', 'pl_QlkHtuQN0e8WZH');
-      script.async = true;
-      
-      // Find the payment container and append the script
-      const paymentContainer = document.getElementById('razorpay-payment-container');
-      if (paymentContainer) {
-        paymentContainer.appendChild(script);
+    if (!showPaymentModal) return;        // only run when modal is open
+
+    let intervalId: NodeJS.Timeout;
+
+    const injectScript = () => {
+      const container = document.getElementById("razorpay-payment-container");
+      if (!container) return;             // DOM not ready yet, keep polling
+
+      // ❶ avoid duplicates
+      if (container.querySelector('script[data-payment_button_id="pl_QlkHtuQN0e8WZH"]')) {
+        return;
       }
-    }
+
+      // ❂ create the script
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/payment-button.js";
+      script.setAttribute("data-payment_button_id", "pl_QlkHtuQN0e8WZH");
+      script.async = true;
+
+      // ❸ place it inside the <form>
+      const form = container.querySelector("form");
+      (form ?? container).appendChild(script);
+
+      clearInterval(intervalId);          // stop polling once injected
+    };
+
+    intervalId = setInterval(injectScript, 100);    // poll every 100 ms
+
+    // ❹ cleanup when modal closes
+    return () => {
+      clearInterval(intervalId);
+      const container = document.getElementById("razorpay-payment-container");
+      if (container) container.innerHTML = "<form></form>";
+    };
   }, [showPaymentModal]);
 
   return (
